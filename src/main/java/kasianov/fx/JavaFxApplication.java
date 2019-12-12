@@ -12,11 +12,10 @@ import org.springframework.context.support.GenericApplicationContext;
 
 public class JavaFxApplication extends Application {
     private ConfigurableApplicationContext context;
-
     @Override
     public void init() throws Exception {
         ApplicationContextInitializer<GenericApplicationContext> initializer =
-                ac-> {
+                (GenericApplicationContext ac) -> {
                     ac.registerBean(Application.class,()-> JavaFxApplication.this);
                     ac.registerBean(Parameters.class, this::getParameters);
                     ac.registerBean(HostServices.class, this::getHostServices);
@@ -30,6 +29,8 @@ public class JavaFxApplication extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        context.getBeanFactory().registerSingleton("stageBean",stage);
+//        genericApplicationContext.registerBean("stageBean",Stage.class,stage);
         this.context.publishEvent(new StageReadyEvent(stage));
     }
 
@@ -37,10 +38,9 @@ public class JavaFxApplication extends Application {
     public void stop() throws Exception {
         this.context.close();
         Platform.exit();
-
     }
 
-    class  StageReadyEvent extends ApplicationEvent{
+    public class  StageReadyEvent extends ApplicationEvent{
 
         public Stage getStage(){
             return (Stage) getSource();
