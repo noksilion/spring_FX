@@ -1,13 +1,16 @@
 package kasianov.fx.api.controller;
 
+import java.lang.reflect.UndeclaredThrowableException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import feign.RetryableException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import kasianov.fx.api.allert.Alerter;
 import kasianov.fx.api.sceneChangers.SceneChanger;
 import kasianov.fx.services.autorization.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,7 @@ public class SignupController {
 
     private final SceneChanger sceneChanger;
     private final AuthService authService;
+    private final Alerter alerter;
 
     @Value("classpath:/login.fxml")
     private Resource loginScene;
@@ -43,9 +47,10 @@ public class SignupController {
     private Button loginButton;
 
     @Autowired
-    public SignupController(SceneChanger sceneChanger, AuthService authService) {
+    public SignupController(SceneChanger sceneChanger, AuthService authService, Alerter alerter) {
         this.sceneChanger = sceneChanger;
         this.authService = authService;
+        this.alerter = alerter;
     }
 
     @FXML
@@ -55,7 +60,13 @@ public class SignupController {
 
     @FXML
     void onSignupButtonClick(ActionEvent event) {
-        authService.signup( emailField.getText(),passwordField.getText(),nameField.getText());
+        try{
+            authService.signup( emailField.getText(),passwordField.getText(),nameField.getText());
+        }catch (UndeclaredThrowableException undeclared){
+            alerter.showAlertFromFeign(undeclared);
+        }catch (RetryableException connectException){
+            alerter.showAlertNoConnection(connectException);
+        }
     }
 
     @FXML

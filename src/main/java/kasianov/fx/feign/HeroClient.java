@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.util.List;
 
-@FeignClient(name = "heroClient", url = "http://185.203.243.38:8081")
+@FeignClient(name = "heroClient", url = "${application.host}")
 public interface HeroClient {
 
     @GetMapping(value = "/heroes", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    List<HeroDto> getAllHeroes(@RequestHeader("Authorization") String language);
+    List<HeroDto> getAllHeroes(@RequestHeader("Authorization") String token);
 }

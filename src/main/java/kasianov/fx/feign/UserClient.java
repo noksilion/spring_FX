@@ -8,9 +8,12 @@ import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.util.List;
 
-@FeignClient(name = "userClient", url = "http://185.203.243.38:8081")
+@FeignClient(name = "userClient", url = "${application.host}")
 public interface UserClient {
 
     @GetMapping(value = "/users/all_users", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    List<UserDtoViewAllUsers> getAllEnemyUsers(@RequestHeader("Authorization") String language);
+    List<UserDtoViewAllUsers> getAllEnemyUsers(@RequestHeader("Authorization") String token);
+
+    @GetMapping(value = "/users/logged_user_id", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    Integer getCurrentUserId(@RequestHeader("Authorization") String token);
 }
