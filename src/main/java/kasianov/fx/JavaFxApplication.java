@@ -30,7 +30,6 @@ public class JavaFxApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         context.getBeanFactory().registerSingleton("stageBean",stage);
-//        genericApplicationContext.registerBean("stageBean",Stage.class,stage);
         this.context.publishEvent(new StageReadyEvent(stage));
     }
 

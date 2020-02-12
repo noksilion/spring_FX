@@ -16,47 +16,48 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 @Component
-public class LoginController {
+public class SignupController {
 
     private final SceneChanger sceneChanger;
 
     private final AuthService authService;
 
-    @Value("classpath:/signup.fxml")
-    private Resource signupScene;
+    @Value("classpath:/login.fxml")
+    private Resource loginScene;
 
     @FXML
     private ResourceBundle resources;
     @FXML
     private URL location;
     @FXML
+    private TextField nameField;
+    @FXML
     private TextField emailField;
     @FXML
     private PasswordField passwordField;
     @FXML
-    private Button loginButton;
-    @FXML
     private Button signupButton;
+    @FXML
+    private Button loginButton;
 
     @Autowired
-    public LoginController(SceneChanger sceneChanger, AuthService authService) {
+    public SignupController(SceneChanger sceneChanger, AuthService authService) {
         this.sceneChanger = sceneChanger;
         this.authService = authService;
     }
 
     @FXML
     void onLoginButtonClick(ActionEvent event) {
-        authService.login(emailField.getText(),passwordField.getText());
+        sceneChanger.setNewScene(loginScene,"Signup Page");
     }
 
     @FXML
     void onSignupButtonClick(ActionEvent event) {
-        sceneChanger.setNewScene(signupScene,"Signup Page");
+        authService.signup( emailField.getText(),passwordField.getText(),nameField.getText());
     }
 
     @FXML
     void initialize() {
-
     }
 }
 

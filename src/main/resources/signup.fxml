@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="601.0" style="-fx-background-color: #2E3348;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kasianov.fx.api.controller.SignupController"
+>
+   <children>
+      <AnchorPane layoutY="75.0" prefHeight="325.0" prefWidth="601.0" style="-fx-background-color: #fafafa;" >
+         <children>
+            <TextField fx:id="nameField" alignment="CENTER" layoutX="201.0" layoutY="71.0" promptText="Name">
+               <font>
+                  <Font name="Luminari" size="15.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="emailField" alignment="CENTER" layoutX="201.0" layoutY="124.0" promptText="Email">
+               <font>
+                  <Font name="Luminari" size="15.0" />
+               </font>
+            </TextField>
+            <Label alignment="CENTER" layoutX="180.0" layoutY="14.0" prefHeight="46.0" prefWidth="242.0" text="Signup Page" textAlignment="CENTER" textFill="#865757">
+               <font>
+                  <Font name="Luminari" size="28.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="passwordField" alignment="CENTER" layoutX="202.0" layoutY="178.0" prefHeight="36.0" prefWidth="199.0" promptText="Password">
+               <font>
+                  <Font name="Luminari" size="15.0" />
+               </font>
+            </PasswordField>
+            <Button fx:id="signupButton" layoutX="245.0" layoutY="234.0" mnemonicParsing="false" onAction="#onSignupButtonClick" prefHeight="12.0" prefWidth="111.0" style="-fx-background-color: #F39C63;" text="Sigup">
+               <font>
+                  <Font name="Luminari" size="15.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <Label layoutX="189.0" layoutY="14.0" prefHeight="46.0" prefWidth="242.0" text="Heroes 3  Statistic" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Luminari" size="28.0" />
+         </font>
+      </Label>
+      <Button fx:id="loginButton" layoutX="484.0" layoutY="14.0" mnemonicParsing="false" onAction="#onLoginButtonClick" prefHeight="12.0" prefWidth="111.0" style="-fx-background-color: #F39C63;" text="Login">
+         <font>
+            <Font name="Luminari" size="15.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

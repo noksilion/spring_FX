@@ -15,7 +15,7 @@ public class StageListener implements ApplicationListener<JavaFxApplication.Stag
     @Value("${app.title}")
     private String applicationTitle;
 
-    @Value("classpath:/scrolable.fxml")
+    @Value("classpath:/signup.fxml")
     private Resource resource;
 
     private final SceneChanger sceneChanger;

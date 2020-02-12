@@ -35,10 +35,18 @@ public class DefaultSceneChanger implements SceneChanger {
             FXMLLoader fxmlLoader = new FXMLLoader(url);
             fxmlLoader.setControllerFactory(applicationContext::getBean);
 
-            Parent root;
-            root = fxmlLoader.load();
+            Parent root = fxmlLoader.load();
+
             Scene scene = new Scene(root);
             stage.setScene(scene);
+            double w = 601.0;
+            double h = 400.0;
+
+            stage.setMaxHeight(h);
+            stage.setMaxWidth(w);
+            stage.setMinHeight(h);
+            stage.setMinWidth(w);
+
             stage.setTitle(sceneTitle);
             stage.show();
         } catch (IOException e) {
