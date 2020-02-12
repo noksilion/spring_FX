@@ -19,11 +19,13 @@ import org.springframework.stereotype.Component;
 public class SignupController {
 
     private final SceneChanger sceneChanger;
-
     private final AuthService authService;
 
     @Value("classpath:/login.fxml")
     private Resource loginScene;
+
+    @Value("${signup.title}")
+    private String signupSceneName;
 
     @FXML
     private ResourceBundle resources;
@@ -48,7 +50,7 @@ public class SignupController {
 
     @FXML
     void onLoginButtonClick(ActionEvent event) {
-        sceneChanger.setNewScene(loginScene,"Signup Page");
+        sceneChanger.setNewScene(loginScene,signupSceneName);
     }
 
     @FXML

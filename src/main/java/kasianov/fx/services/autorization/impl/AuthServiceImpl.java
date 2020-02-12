@@ -15,6 +15,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class AuthServiceImpl implements AuthService {
 
+    @Value("${main_menu.title}")
+    private String mainMenuSceneName;
+
     private AuthorizationClient authorizationClient;
     private Store tokenStore;
     private SceneChanger sceneChanger;
@@ -38,7 +41,7 @@ public class AuthServiceImpl implements AuthService {
                 .build()
         );
         tokenStore.setToken(tokenDto.getToken());
-        sceneChanger.setNewScene(loginScene,"Main Menu");
+        sceneChanger.setNewScene(loginScene,mainMenuSceneName);
     }
 
     @Override
@@ -50,7 +53,7 @@ public class AuthServiceImpl implements AuthService {
                 .build()
         );
         tokenStore.setToken(tokenDto.getToken());
-        sceneChanger.setNewScene(loginScene,"Main Menu");
+        sceneChanger.setNewScene(loginScene,mainMenuSceneName);
     }
 
     @Override

@@ -2,7 +2,6 @@ package kasianov.fx.api.listeners;
 
 import kasianov.fx.JavaFxApplication;
 import kasianov.fx.api.sceneChangers.SceneChanger;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.io.Resource;
@@ -12,10 +11,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class StageListener implements ApplicationListener<JavaFxApplication.StageReadyEvent> {
 
-    @Value("${app.title}")
-    private String applicationTitle;
+    @Value("${login.title}")
+    private String loginTitle;
 
-    @Value("classpath:/signup.fxml")
+    @Value("classpath:/login.fxml")
     private Resource resource;
 
     private final SceneChanger sceneChanger;
@@ -26,6 +25,6 @@ public class StageListener implements ApplicationListener<JavaFxApplication.Stag
 
     @Override
     public void onApplicationEvent(JavaFxApplication.StageReadyEvent stageReadyEvent) {
-        sceneChanger.setNewScene(resource,applicationTitle);
+        sceneChanger.setNewScene(resource, loginTitle);
     }
 }

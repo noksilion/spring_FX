@@ -25,6 +25,9 @@ public class LoginController {
     @Value("classpath:/signup.fxml")
     private Resource signupScene;
 
+    @Value("${signup.title}")
+    private String signupSceneName;
+
     @FXML
     private ResourceBundle resources;
     @FXML
@@ -51,7 +54,7 @@ public class LoginController {
 
     @FXML
     void onSignupButtonClick(ActionEvent event) {
-        sceneChanger.setNewScene(signupScene,"Signup Page");
+        sceneChanger.setNewScene(signupScene,signupSceneName);
     }
 
     @FXML

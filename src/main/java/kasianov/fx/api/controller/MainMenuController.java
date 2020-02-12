@@ -14,6 +14,15 @@ public class MainMenuController {
     @Value("classpath:/login.fxml")
     private Resource loginScene;
 
+    @Value("classpath:/add_battle.fxml")
+    private Resource addBattleScene;
+
+    @Value("${login.title}")
+    private String loginSceneName;
+
+    @Value("${add_battle.title}")
+    private String addBattleSceneName;
+
     private SceneChanger sceneChanger;
     private AuthService authService;
 
@@ -34,7 +43,7 @@ public class MainMenuController {
 
     @FXML
     void onAddBattleButtonClick(ActionEvent event) {
-
+        sceneChanger.setNewScene(addBattleScene,addBattleSceneName);
     }
 
     @FXML
@@ -50,7 +59,7 @@ public class MainMenuController {
     @FXML
     void onLogoutButtonClick(ActionEvent event) {
         authService.logout();
-        sceneChanger.setNewScene(loginScene,"Login Page");
+        sceneChanger.setNewScene(loginScene,loginSceneName);
     }
 
 

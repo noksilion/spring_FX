@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class StoreImpl implements Store {
+
     private String token;
     private Boolean isTokenExists = false;
 
@@ -16,7 +17,7 @@ public class StoreImpl implements Store {
 
     @Override
     public String getToken() {
-        return this.token;
+        return "Bearer "+this.token;
     }
 
     @Override
