@@ -1,4 +1,4 @@
-package kasianov.fx.api.controller;
+package kasianov.fx.api.controller.impl;
 
 import feign.RetryableException;
 import javafx.event.ActionEvent;
@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import kasianov.fx.api.allert.Alerter;
+import kasianov.fx.api.controller.CustomFXController;
 import kasianov.fx.api.sceneChangers.SceneChanger;
 import kasianov.fx.dto.impl.*;
 import kasianov.fx.feign.HeroClient;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class AddBattleController {
+public class AddBattleController  implements CustomFXController {
 
     @Value("classpath:/login.fxml")
     private Resource loginScene;
@@ -97,31 +98,31 @@ public class AddBattleController {
     void onSubmitButtonClick(ActionEvent event) {
         if(heroBox.getValue() == null){
             alerter.showWarningAlert("Your hero not selected");
-            sceneChanger.setNewScene(addBattleScene,addBattleSceneName);
+            return;
         }
         HeroDto userHero = heroBox.getValue();
 
         if(resultBox.getValue() == null){
             alerter.showWarningAlert("Your result not selected");
-            sceneChanger.setNewScene(addBattleScene,addBattleSceneName);
+            return;
         }
         Result userResult = resultBox.getValue();
 
         if(enemyName1.getValue() == null){
             alerter.showWarningAlert("Enemy 1 name not selected");
-            sceneChanger.setNewScene(addBattleScene,addBattleSceneName);
+            return;
         }
         UserDtoViewAllUsers enemy1 = enemyName1.getValue();
 
         if(heroBox1.getValue() == null){
             alerter.showWarningAlert("Enemy 1 hero not selected");
-            sceneChanger.setNewScene(addBattleScene,addBattleSceneName);
+            return;
         }
         HeroDto enemy1Hero = heroBox1.getValue();
 
         if(resultBox1.getValue() == null){
             alerter.showWarningAlert("Enemy 1 result not selected");
-            sceneChanger.setNewScene(addBattleScene,addBattleSceneName);
+            return;
         }
         Result enemy1Result = resultBox1.getValue();
 
@@ -133,10 +134,11 @@ public class AddBattleController {
                 .build());
         try {
             gameServices.saveGame(userHero.getId(), userResult, enemyList);
+            alerter.showSuccessAlert("Game successfully added");
         }catch (UndeclaredThrowableException undeclared){
             alerter.showAlertFromFeign(undeclared);
         }catch (RetryableException connectException){
-            alerter.showAlertNoConnection(connectException);
+            alerter.showAlertNoConnection();
         }
     }
 
@@ -150,8 +152,21 @@ public class AddBattleController {
     void initialize() {
         String token = store.getToken();
 
-        List<UserDtoViewAllUsers> allEnemyUsers = userClient.getAllEnemyUsers(token);
-        List<HeroDto> heroDtos = heroClient.getAllHeroes(token);
+        List<UserDtoViewAllUsers> allEnemyUsers;
+        try{
+            allEnemyUsers = userClient.getAllEnemyUsers(token);
+        } catch (RetryableException connectException) {
+            alerter.showAlertNoConnection();
+            return;
+        }
+
+        List<HeroDto> heroDtos;
+        try{
+            heroDtos = heroClient.getAllHeroes(token);
+        } catch (RetryableException connectException) {
+            alerter.showAlertNoConnection();
+            return;
+        }
 
         heroBox.getItems().addAll(heroDtos);
         heroBox1.getItems().addAll(heroDtos);
@@ -162,4 +177,8 @@ public class AddBattleController {
         resultBox1.getItems().addAll(Result.LOOSE,Result.VICTORY);
     }
 
+    @Override
+    public void afterInit() {
+
+    }
 }

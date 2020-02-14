@@ -1,4 +1,4 @@
-package kasianov.fx.api.controller;
+package kasianov.fx.api.controller.impl;
 
 import java.lang.reflect.UndeclaredThrowableException;
 import java.net.URL;
@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import kasianov.fx.api.allert.Alerter;
+import kasianov.fx.api.controller.CustomFXController;
 import kasianov.fx.api.sceneChangers.SceneChanger;
 import kasianov.fx.services.autorization.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SignupController {
+public class SignupController implements CustomFXController {
 
     private final SceneChanger sceneChanger;
     private final AuthService authService;
@@ -65,12 +66,17 @@ public class SignupController {
         }catch (UndeclaredThrowableException undeclared){
             alerter.showAlertFromFeign(undeclared);
         }catch (RetryableException connectException){
-            alerter.showAlertNoConnection(connectException);
+            alerter.showAlertNoConnection();
         }
     }
 
     @FXML
     void initialize() {
+    }
+
+    @Override
+    public void afterInit() {
+
     }
 }
 

@@ -6,6 +6,7 @@ import java.lang.reflect.UndeclaredThrowableException;
 
 public interface Alerter {
     void showAlertFromFeign(UndeclaredThrowableException exception);
-    void showAlertNoConnection(RetryableException connectException);
+    void showAlertNoConnection();
     void showWarningAlert(String message);
+    void showSuccessAlert(String message);
 }

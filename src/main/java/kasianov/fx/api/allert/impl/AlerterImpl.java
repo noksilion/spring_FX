@@ -27,7 +27,7 @@ public class AlerterImpl implements Alerter {
     }
 
     @Override
-    public void showAlertNoConnection(RetryableException connectException) {
+    public void showAlertNoConnection() {
             Alert alert = new Alert(Alert.AlertType.WARNING);
 
             alert.setTitle("Warning alert");
@@ -43,6 +43,17 @@ public class AlerterImpl implements Alerter {
 
         alert.setTitle("Warning alert");
         alert.setHeaderText("Warning");
+        alert.setContentText(message);
+
+        alert.showAndWait();
+    }
+
+    @Override
+    public void showSuccessAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+        alert.setTitle("Success Alert");
+        alert.setHeaderText("Success");
         alert.setContentText(message);
 
         alert.showAndWait();

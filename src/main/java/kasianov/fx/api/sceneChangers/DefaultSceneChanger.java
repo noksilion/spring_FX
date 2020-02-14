@@ -4,7 +4,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.springframework.beans.factory.annotation.Qualifier;
+import kasianov.fx.api.allert.Alerter;
+import kasianov.fx.exceptions.LoadAnotherSceneException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.support.GenericApplicationContext;
@@ -19,10 +21,13 @@ import java.net.URL;
 public class DefaultSceneChanger implements SceneChanger {
     private final GenericApplicationContext genericApplicationContext;
     private final ApplicationContext applicationContext;
+    private final Alerter alerter;
 
-    public DefaultSceneChanger(GenericApplicationContext genericApplicationContext, ApplicationContext applicationContext) {
+    @Autowired
+    public DefaultSceneChanger(GenericApplicationContext genericApplicationContext, ApplicationContext applicationContext, Alerter alerter) {
         this.genericApplicationContext = genericApplicationContext;
         this.applicationContext = applicationContext;
+        this.alerter = alerter;
     }
 
 
@@ -31,11 +36,20 @@ public class DefaultSceneChanger implements SceneChanger {
         Stage stage = getStageFromContext();
 
         try {
-            URL url = resourceLocation.getURL();
-            FXMLLoader fxmlLoader = new FXMLLoader(url);
-            fxmlLoader.setControllerFactory(applicationContext::getBean);
-
-            Parent root = fxmlLoader.load();
+            Parent root;
+            try {
+                URL url = resourceLocation.getURL();
+                FXMLLoader fxmlLoader = new FXMLLoader(url);
+                fxmlLoader.setControllerFactory(applicationContext::getBean);
+                stage.setTitle(sceneTitle);
+                root = fxmlLoader.load();
+            }catch (LoadAnotherSceneException e){
+                URL url = e.getLoginScene().getURL();
+                FXMLLoader fxmlLoader = new FXMLLoader(url);
+                fxmlLoader.setControllerFactory(applicationContext::getBean);
+                stage.setTitle(e.getSceneName());
+                root = fxmlLoader.load();
+            }
 
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -47,11 +61,14 @@ public class DefaultSceneChanger implements SceneChanger {
             stage.setMinHeight(h);
             stage.setMinWidth(w);
 
-            stage.setTitle(sceneTitle);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+    }
+
+    private void showStage(){
 
     }
 

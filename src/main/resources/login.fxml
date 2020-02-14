@@ -7,11 +7,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="400.0" maxWidth="601.0" minHeight="400.0" minWidth="601.0" prefHeight="400.0" prefWidth="601.0" style="-fx-background-color: #2E3348;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kasianov.fx.api.controller.LoginController">
+<AnchorPane maxHeight="400.0" maxWidth="601.0" minHeight="400.0" minWidth="601.0" prefHeight="400.0" prefWidth="601.0" style="-fx-background-color: #2E3348;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kasianov.fx.api.controller.impl.LoginController">
    <children>
       <AnchorPane layoutY="75.0" prefHeight="325.0" prefWidth="601.0" style="-fx-background-color: #fafafa;">
          <children>
-            <TextField fx:id="emailField" alignment="CENTER" layoutX="202.0" layoutY="94.0" promptText="Email" text="noksilion@gmail.com">
+            <TextField fx:id="emailField" alignment="CENTER" layoutX="202.0" layoutY="94.0" promptText="Email" text="alexeysssx@gmail.com">
                <font>
                   <Font name="Luminari" size="15.0" />
                </font>
@@ -21,7 +21,7 @@
                   <Font name="Luminari" size="28.0" />
                </font>
             </Label>
-            <PasswordField fx:id="passwordField" alignment="CENTER" layoutX="202.0" layoutY="148.0" prefHeight="36.0" prefWidth="199.0" promptText="Password" text="password">
+            <PasswordField fx:id="passwordField" alignment="CENTER" layoutX="202.0" layoutY="148.0" prefHeight="36.0" prefWidth="199.0" promptText="Password" text="123456">
                <font>
                   <Font name="Luminari" size="15.0" />
                </font>

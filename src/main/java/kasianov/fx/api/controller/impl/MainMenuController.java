@@ -1,8 +1,9 @@
-package kasianov.fx.api.controller;
+package kasianov.fx.api.controller.impl;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import kasianov.fx.api.controller.CustomFXController;
 import kasianov.fx.api.sceneChangers.SceneChanger;
 import kasianov.fx.services.autorization.AuthService;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,15 +11,27 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MainMenuController {
+public class MainMenuController implements CustomFXController {
     @Value("classpath:/login.fxml")
     private Resource loginScene;
+
+    @Value("classpath:/statistic.fxml")
+    private Resource statisticsScene;
+
+    @Value("classpath:/confirmGames.fxml")
+    private Resource confirmGamesScene;
 
     @Value("classpath:/add_battle.fxml")
     private Resource addBattleScene;
 
     @Value("${login.title}")
     private String loginSceneName;
+
+    @Value("${confirmGames.title}")
+    private String confirmGamesSceneName;
+
+    @Value("${statistics.title}")
+    private String statisticsSceneName;
 
     @Value("${add_battle.title}")
     private String addBattleSceneName;
@@ -48,12 +61,12 @@ public class MainMenuController {
 
     @FXML
     void onConfirmButtonClick(ActionEvent event) {
-
+        sceneChanger.setNewScene(confirmGamesScene,confirmGamesSceneName);
     }
 
     @FXML
     void onStatisticButtonClick(ActionEvent event) {
-
+        sceneChanger.setNewScene(statisticsScene,statisticsSceneName);
     }
 
     @FXML
@@ -63,4 +76,8 @@ public class MainMenuController {
     }
 
 
+    @Override
+    public void afterInit() {
+
+    }
 }
