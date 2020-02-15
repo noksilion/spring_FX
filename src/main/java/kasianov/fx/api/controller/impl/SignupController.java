@@ -20,7 +20,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SignupController implements CustomFXController {
+public class SignupController {
 
     private final SceneChanger sceneChanger;
     private final AuthService authService;
@@ -74,9 +74,5 @@ public class SignupController implements CustomFXController {
     void initialize() {
     }
 
-    @Override
-    public void afterInit() {
-
-    }
 }
 

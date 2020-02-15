@@ -10,6 +10,7 @@ import kasianov.fx.api.allert.Alerter;
 import kasianov.fx.api.controller.CustomFXController;
 import kasianov.fx.api.sceneChangers.SceneChanger;
 import kasianov.fx.dto.impl.*;
+import kasianov.fx.exceptions.LoadAnotherSceneException;
 import kasianov.fx.feign.HeroClient;
 import kasianov.fx.feign.StatisticClient;
 import kasianov.fx.feign.UserClient;
@@ -24,7 +25,7 @@ import java.lang.reflect.UndeclaredThrowableException;
 import java.util.List;
 
 @Component
-public class StatisticController implements CustomFXController {
+public class StatisticController {
 
 
     @FXML
@@ -229,7 +230,7 @@ public class StatisticController implements CustomFXController {
             allEnemyUsers = userClient.getAllEnemyUsers(token);
         } catch (RetryableException connectException) {
             alerter.showAlertNoConnection();
-            return;
+            throw new LoadAnotherSceneException(menuScene,menuSceneName);
         }
 
         List<HeroDto> heroDtos;
@@ -237,7 +238,7 @@ public class StatisticController implements CustomFXController {
             heroDtos = heroClient.getAllHeroes(token);
         } catch (RetryableException connectException) {
             alerter.showAlertNoConnection();
-            return;
+            throw new LoadAnotherSceneException(menuScene,menuSceneName);
         }
 
         heroBox1.getItems().addAll(heroDtos);
@@ -247,8 +248,4 @@ public class StatisticController implements CustomFXController {
         enemyNameBox1.getItems().addAll(allEnemyUsers);
     }
 
-    @Override
-    public void afterInit() {
-
-    }
 }

@@ -11,7 +11,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MainMenuController implements CustomFXController {
+public class MainMenuController {
     @Value("classpath:/login.fxml")
     private Resource loginScene;
 
@@ -76,8 +76,4 @@ public class MainMenuController implements CustomFXController {
     }
 
 
-    @Override
-    public void afterInit() {
-
-    }
 }

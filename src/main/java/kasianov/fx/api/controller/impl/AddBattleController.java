@@ -9,6 +9,7 @@ import kasianov.fx.api.allert.Alerter;
 import kasianov.fx.api.controller.CustomFXController;
 import kasianov.fx.api.sceneChangers.SceneChanger;
 import kasianov.fx.dto.impl.*;
+import kasianov.fx.exceptions.LoadAnotherSceneException;
 import kasianov.fx.feign.HeroClient;
 import kasianov.fx.feign.UserClient;
 import kasianov.fx.services.autorization.AuthService;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class AddBattleController  implements CustomFXController {
+public class AddBattleController {
 
     @Value("classpath:/login.fxml")
     private Resource loginScene;
@@ -56,8 +57,6 @@ public class AddBattleController  implements CustomFXController {
     @FXML
     private Button submitButton;
     @FXML
-    private Button addEnemyButton;
-    @FXML
     private ComboBox<HeroDto> heroBox;
     @FXML
     private ComboBox<Result> resultBox;
@@ -82,11 +81,6 @@ public class AddBattleController  implements CustomFXController {
         this.heroClient = heroClient;
         this.gameServices = gameServices;
         this.alerter = alerter;
-    }
-
-    @FXML
-    void onAddEnemyButtonClick(ActionEvent event) {
-
     }
 
     @FXML
@@ -157,7 +151,7 @@ public class AddBattleController  implements CustomFXController {
             allEnemyUsers = userClient.getAllEnemyUsers(token);
         } catch (RetryableException connectException) {
             alerter.showAlertNoConnection();
-            return;
+            throw new LoadAnotherSceneException(menuScene,menuSceneName);
         }
 
         List<HeroDto> heroDtos;
@@ -165,7 +159,7 @@ public class AddBattleController  implements CustomFXController {
             heroDtos = heroClient.getAllHeroes(token);
         } catch (RetryableException connectException) {
             alerter.showAlertNoConnection();
-            return;
+            throw new LoadAnotherSceneException(menuScene,menuSceneName);
         }
 
         heroBox.getItems().addAll(heroDtos);
@@ -175,10 +169,5 @@ public class AddBattleController  implements CustomFXController {
 
         resultBox.getItems().addAll(Result.LOOSE,Result.VICTORY);
         resultBox1.getItems().addAll(Result.LOOSE,Result.VICTORY);
-    }
-
-    @Override
-    public void afterInit() {
-
     }
 }

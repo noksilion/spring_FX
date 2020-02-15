@@ -13,12 +13,7 @@
    <children>
       <AnchorPane layoutY="75.0" prefHeight="308.0" prefWidth="601.0" style="-fx-background-color: #fafafa;">
          <children>
-            <Button fx:id="submitButton" layoutX="69.0" layoutY="267.0" mnemonicParsing="false" onAction="#onSubmitButtonClick" prefHeight="12.0" prefWidth="111.0" style="-fx-background-color: #F39C63;" text="Submit">
-               <font>
-                  <Font name="Luminari" size="15.0" />
-               </font>
-            </Button>
-            <Button fx:id="addEnemyButton" layoutX="424.0" layoutY="267.0" mnemonicParsing="false" onAction="#onAddEnemyButtonClick" prefHeight="12.0" prefWidth="111.0" style="-fx-background-color: #F39C63;" text="Add Enemy">
+            <Button fx:id="submitButton" layoutX="245.0" layoutY="267.0" mnemonicParsing="false" onAction="#onSubmitButtonClick" prefHeight="12.0" prefWidth="111.0" style="-fx-background-color: #F39C63;" text="Submit">
                <font>
                   <Font name="Luminari" size="15.0" />
                </font>
