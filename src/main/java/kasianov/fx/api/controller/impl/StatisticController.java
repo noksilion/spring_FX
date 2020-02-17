@@ -14,6 +14,7 @@ import kasianov.fx.exceptions.LoadAnotherSceneException;
 import kasianov.fx.feign.HeroClient;
 import kasianov.fx.feign.StatisticClient;
 import kasianov.fx.feign.UserClient;
+import kasianov.fx.fxelements.ComboBoxAutoComplete;
 import kasianov.fx.services.autorization.AuthService;
 import kasianov.fx.utils.Store;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -243,6 +244,9 @@ public class StatisticController {
 
         heroBox1.getItems().addAll(heroDtos);
         heroBox3.getItems().addAll(heroDtos);
+        
+        new ComboBoxAutoComplete<>(heroBox1);
+        new ComboBoxAutoComplete<>(heroBox3);
 
         enemyName2.getItems().addAll(allEnemyUsers);
         enemyNameBox1.getItems().addAll(allEnemyUsers);

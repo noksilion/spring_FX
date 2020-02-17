@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.layout.AnchorPane;
 import kasianov.fx.api.allert.Alerter;
 import kasianov.fx.api.controller.CustomFXController;
 import kasianov.fx.api.sceneChangers.SceneChanger;
@@ -12,6 +13,7 @@ import kasianov.fx.dto.impl.*;
 import kasianov.fx.exceptions.LoadAnotherSceneException;
 import kasianov.fx.feign.HeroClient;
 import kasianov.fx.feign.UserClient;
+import kasianov.fx.fxelements.ComboBoxAutoComplete;
 import kasianov.fx.services.autorization.AuthService;
 import kasianov.fx.services.game.GameServices;
 import kasianov.fx.utils.Store;
@@ -53,7 +55,10 @@ public class AddBattleController {
     private GameServices gameServices;
     private Alerter alerter;
 
+    private ComboBoxAutoComplete<HeroDto> autoHeroBox;
 
+    @FXML
+    private AnchorPane mePane;
     @FXML
     private Button submitButton;
     @FXML
@@ -146,6 +151,8 @@ public class AddBattleController {
     void initialize() {
         String token = store.getToken();
 
+
+
         List<UserDtoViewAllUsers> allEnemyUsers;
         try{
             allEnemyUsers = userClient.getAllEnemyUsers(token);
@@ -164,6 +171,10 @@ public class AddBattleController {
 
         heroBox.getItems().addAll(heroDtos);
         heroBox1.getItems().addAll(heroDtos);
+
+        new ComboBoxAutoComplete<>(heroBox);
+
+        new ComboBoxAutoComplete<>(heroBox1);
 
         enemyName1.getItems().addAll(allEnemyUsers);
 

@@ -20,7 +20,7 @@ public interface GameClient {
 
     @GetMapping(value = "/games/approve_game", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     void approveGame (@RequestHeader("Authorization") String token,
-                         @RequestParam("user_game_id") Integer gameId);
+                         @RequestParam("game_id") Integer gameId);
 
 
 }

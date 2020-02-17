@@ -21,13 +21,11 @@ import java.net.URL;
 public class DefaultSceneChanger implements SceneChanger {
     private final GenericApplicationContext genericApplicationContext;
     private final ApplicationContext applicationContext;
-    private final Alerter alerter;
 
     @Autowired
-    public DefaultSceneChanger(GenericApplicationContext genericApplicationContext, ApplicationContext applicationContext, Alerter alerter) {
+    public DefaultSceneChanger(GenericApplicationContext genericApplicationContext, ApplicationContext applicationContext) {
         this.genericApplicationContext = genericApplicationContext;
         this.applicationContext = applicationContext;
-        this.alerter = alerter;
     }
 
 
@@ -65,10 +63,6 @@ public class DefaultSceneChanger implements SceneChanger {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-    }
-
-    private void showStage(){
 
     }
 
